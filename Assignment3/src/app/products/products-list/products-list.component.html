@@ -1,0 +1,77 @@
+<div class="container" style="margin-top: 80px;">
+    <div class="row">
+        <div class="d-flex justify-content-between align-items-center pb-2">
+            <div class="d-flex mt-2">
+                <button class="btn" style="background-color: #958F8A; color: white;" routerLink="/products/add">Add product</button>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center pb-2">
+
+            <header *ngIf="totalCount && shopParams.pageNumber && shopParams.pageSize">
+                <span *ngIf="totalCount > 0">Showing 
+                    <strong>
+                        {{(shopParams.pageNumber -1) * shopParams.pageSize + 1}} - 
+                        {{shopParams.pageNumber * shopParams.pageSize 
+                            > totalCount 
+                            ? totalCount 
+                            : shopParams.pageNumber * shopParams.pageSize
+                        }}
+                        </strong> of <strong>{{totalCount}}</strong> Results
+                </span>
+                <span *ngIf="totalCount === 0">There are <strong>0</strong> results for this filter</span>
+            </header>
+
+            <div class="d-flex mt-2">
+                <input (keyup.enter)="onSearch()" type="text" placeholder="Search" class="form-control" #search>
+                <button class="btn mx-2" style="background-color: #958F8A; color: white;" (click)="onSearch()" >Search</button>
+                <button style="background-color: #958F8A; color: white;" (click)="onReset()" class="btn mx-2">Reset</button>
+                <select class="form-select mx-2" style="max-width: 40px; min-width: none;"  (change)="onSortSelected($event)">
+                    <option *ngFor="let sort of sortOptions" [value]="sort.value"> 
+                        {{sort.name}}
+                    </option>
+                </select>
+                <select class="form-select mx-2" style="max-width: 40px; min-width: none;" (change)="onTypeSelected($event)">
+                    <option *ngFor="let type of types" [value]="type.name"> 
+                        {{type.name}}
+                    </option>
+                </select>
+                <select class="form-select mx-2" style="max-width: 40px; min-width: none;" (change)="onPageSizeSelected($event)">
+                    <option *ngFor="let pageopt of PageOptions" [value]="pageopt.value"> 
+                        {{pageopt.name}}
+                    </option>
+                </select>
+                <select class="form-select mx-2" style="max-width: 40px; min-width: none;" (change)="onBrandSelected($event)">
+                    <option *ngFor="let brand of brands" [value]="brand.name"> 
+                        {{brand.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="text-uppercase">
+                    <tr>
+                        <th><div class="py-2">Product</div></th>
+                        <th><div class="py-2">Description</div></th>
+                        <th><div class="py-2">Type</div></th>
+                        <th><div class="py-2">Brand</div></th>
+                        <th><div class="py-2">Price</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products">
+                        <td class="align-middle"><strong>{{product.name }}</strong></td>
+                        <td class="align-middle"><strong>{{product.description }}</strong></td>
+                        <td class="align-middle"><strong>{{product.producttype}}</strong></td>
+                        <td class="align-middle"><strong>{{product.brand}}</strong></td>
+                        <td class="align-middle"><strong>{{product.price | currency:'R'}}</strong></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <pagination *ngIf="totalCount && shopParams.pageSize" [boundaryLinks]="true" [totalItems]="totalCount" [itemsPerPage]="shopParams.pageSize" [maxSize]="10"
+        (pageChanged)="onPageChanged($event) "previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+</div>

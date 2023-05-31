@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 80px;">
+    <h5 class="ms-3 my-2">Add Product</h5>
+    <form class="row" [formGroup]="ProductForm" (ngSubmit)="addProduct()">
+        <div class="form-group col-6">
+            <input [formControl]="ProductForm.controls['name']" placeholder="name" class="form-control mb-4"
+            [ngClass]="{ 'is-invalid': ProductForm.get('name')?.invalid && (ProductForm.get('name')?.dirty || ProductForm.get('name')?.touched) }">
+            <input [formControl]="ProductForm.controls['description']" placeholder="description" class="form-control mb-4"
+            [ngClass]="{ 'is-invalid': ProductForm.get('description')?.invalid && (ProductForm.get('description')?.dirty || ProductForm.get('description')?.touched) }">
+            <input [formControl]="ProductForm.controls['price']" type="number" placeholder="name" class="form-control mb-4"
+            [ngClass]="{ 'is-invalid': ProductForm.get('price')?.invalid && (ProductForm.get('price')?.dirty || ProductForm.get('price')?.touched) }">
+            <label for="floatingInput">Brand</label>
+            <select class="form-select mb-4" (change)="onBrandSelected($event)">
+                <option *ngFor="let brand of brands" [value]="brand.name"> 
+                    {{brand.name}}
+                </option>
+            </select>
+            <label for="floatingInput">Type</label>
+            <select class="form-select mb-4" (change)="onTypeSelected($event)">
+                <option *ngFor="let type of types" [value]="type.name"> 
+                    {{type.name}}
+                </option>
+            </select>
+        </div>
+        <div>
+            <button [disabled]="ProductForm.invalid"class="btn btn-primary" type="submit" class="btn btn-primary" type="submit">Add</button>
+        </div>
+    </form>
+</div>

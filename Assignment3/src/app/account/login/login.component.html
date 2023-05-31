@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center" style="margin-top: 80px;">
+        <div class="col-3">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="text-center mb-4">
+                    <h1 class="mb-3">Login</h1>
+                </div>
+                <input [formControl]="loginForm.controls['emailaddress']" placeholder="Email" type="email" class="form-control mb-4" 
+                [ngClass]="{ 'is-invalid': loginForm.get('emailaddress')?.invalid && (loginForm.get('emailaddress')?.dirty || loginForm.get('emailaddress')?.touched) }">
+                <input [formControl]="loginForm.controls['password']" placeholder="Password" type="password" class="form-control mb-4"
+                [ngClass]="{ 'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) }">
+                <div class="d-grid">
+                  <button [disabled]="loginForm.invalid"class="btn btn-primary" type="submit">Sign In</button>
+                </div>
+                <p class="mt-2 text-center">Dont have an account Register <a routerLink="/account/register">here</a></p>
+            </form>
+        </div>
+</div>

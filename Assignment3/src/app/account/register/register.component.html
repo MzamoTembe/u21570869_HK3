@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-center" style="margin-top: 80px;">
+    <div class="col-3">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="text-center mb-4">
+                <h1 class="mb-3">Register</h1>
+            </div>
+            <input [formControl]="registerForm.controls['emailaddress']" placeholder="Email" type="email" class="form-control mb-4"
+            [ngClass]="{ 'is-invalid': registerForm.get('emailaddress')?.invalid && (registerForm.get('emailaddress')?.dirty || registerForm.get('emailaddress')?.touched) }">
+            <input [formControl]="registerForm.controls['password']" placeholder="Password" type="password" class="form-control mb-4"
+            [ngClass]="{ 'is-invalid': registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched) }">
+            <div class="d-grid">
+              <button [disabled]="registerForm.invalid"class="btn btn-primary" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
